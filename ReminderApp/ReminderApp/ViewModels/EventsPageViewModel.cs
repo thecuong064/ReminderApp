@@ -188,7 +188,7 @@ namespace ReminderApp.ViewModels
                     {ParamKey.SelectedEventId.ToString(), newId }
                 };
 
-                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param);
+                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param, animated: false);
             });
         }
 
@@ -212,7 +212,6 @@ namespace ReminderApp.ViewModels
         }
 
         #endregion
-
 
         #region DeleteEvent
 

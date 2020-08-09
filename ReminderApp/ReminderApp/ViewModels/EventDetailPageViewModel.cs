@@ -1,17 +1,12 @@
-﻿using ImTools;
-using Plugin.LocalNotifications;
-using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using ReminderApp.Enums;
+using ReminderApp.LocalNotification;
 using ReminderApp.Models;
-using ReminderApp.Popups;
 using ReminderApp.Services.SQLiteService;
 using ReminderApp.ViewModels.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 
 namespace ReminderApp.ViewModels

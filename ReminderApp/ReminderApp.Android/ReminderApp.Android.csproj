@@ -65,9 +65,6 @@
     <PackageReference Include="Naxam.BottomTabbedPage">
       <Version>0.3.0.2</Version>
     </PackageReference>
-    <PackageReference Include="Xam.Plugins.Notifier">
-      <Version>3.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Annotations">
       <Version>28.0.0.3</Version>
     </PackageReference>
@@ -82,6 +79,10 @@
     <Compile Include="Controls\CustomEntryRenderer.cs" />
     <Compile Include="Controls\CustomTabbedPageRenderer.cs" />
     <Compile Include="Controls\CustomTabbedPageRenderer.Tabs.cs" />
+    <Compile Include="LocalNotifcation\CrossLocalNotifications.cs" />
+    <Compile Include="LocalNotifcation\LocalNotification.cs" />
+    <Compile Include="LocalNotifcation\LocalNotificationImplementation.cs" />
+    <Compile Include="LocalNotifcation\ScheduledAlarmHandler.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SQLiteService\DatabaseConnection.cs" />
