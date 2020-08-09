@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="ReminderApp.Views.EventsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:ReminderApp.Views.Base"
+    xmlns:converter="clr-namespace:ReminderApp.Converters"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
+    <base:BasePage.Resources>
+        <ResourceDictionary>
+            <converter:RevertBoolValueConverter x:Key="RevertBoolValueConverter" />
+        </ResourceDictionary>
+    </base:BasePage.Resources>
+
+    <StackLayout Padding="8">
+
+        <StackLayout
+            BackgroundColor="{StaticResource WhiteColor}"
+            HeightRequest="60"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+            <Label
+                FontAttributes="Bold"
+                FontSize="{StaticResource SuperLargeFontSize}"
+                HorizontalOptions="Center"
+                Text="MY EVENTS"
+                TextColor="{StaticResource LightBlueColor}"
+                VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+
+        <SearchBar
+            Placeholder="Search"
+            Text="{Binding SearchText}"
+            VerticalOptions="Center" />
+
+        <Picker
+            Margin="20,0,0,0"
+            ItemsSource="{Binding EventTypesList}"
+            SelectedIndex="{Binding SelectedEventTypeIndex, Mode=TwoWay}" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ListView
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
+                ItemsSource="{Binding ShowedEventsList}"
+                RefreshCommand="{Binding RefreshListCommand}"
+                SelectedItem="{Binding SelectedEvent}"
+                SeparatorVisibility="None">
+
+                <ListView.Behaviors>
+                    <prism:EventToCommandBehavior Command="{Binding OnEventTappedCommand}" EventName="ItemTapped" />
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Clicked="MenuItem_Clicked"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="ic_delete.png"
+                                    Text="Remove" />
+                            </ViewCell.ContextActions>
+
+                            <Frame
+                                Margin="10"
+                                Padding="8"
+                                BackgroundColor="{StaticResource WhiteColor}">
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        Text="{Binding Title}"
+                                        TextColor="{StaticResource BlackColor}" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="{Binding Body}"
+                                        TextColor="{StaticResource BlackColor}" />
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding Time, StringFormat='{0:hh\\:mm}'}"
+                                        TextColor="{StaticResource BlackColor}" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                        TextColor="{StaticResource BlackColor}" />
+                                </Grid>
+
+                            </Frame>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button
+                Margin="20,20,20,40"
+                BackgroundColor="{StaticResource LightBlueColor}"
+                Command="{Binding AddEventCommand}"
+                CornerRadius="90"
+                FontSize="25"
+                HeightRequest="55"
+                HorizontalOptions="End"
+                Text="+"
+                TextColor="White"
+                VerticalOptions="End"
+                WidthRequest="55" />
+        </Grid>
+
+    </StackLayout>
+
+</base:BasePage>

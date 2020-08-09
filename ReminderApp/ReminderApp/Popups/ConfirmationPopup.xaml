@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="ReminderApp.Popups.ConfirmationPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    mc:Ignorable="d">
+    <Grid
+        BackgroundColor="#80ffffff"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <StackLayout
+            Padding="10,0,0,30"
+            BackgroundColor="#7895d5"
+            VerticalOptions="CenterAndExpand">
+            <Label
+                x:Name="messageLabel"
+                FontSize="24"
+                HorizontalOptions="Center"
+                TextColor="White" />
+            <ffimageloading:CachedImage
+                x:Name="messageIcon"
+                Aspect="AspectFit"
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                Source="ic_sign_out_blue_72dp" />
+
+            <!--  for 2 buttons  -->
+            <Grid x:Name="TwoButtonsView" HorizontalOptions="CenterAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <ffimageloading:CachedImage
+                    x:Name="acceptButton"
+                    Grid.Column="0"
+                    Aspect="AspectFit"
+                    HeightRequest="150"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="ic_accept_enabled_72dp"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="150">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="acceptButton_Tapped" />
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+
+                <ffimageloading:CachedImage
+                    x:Name="declineButton"
+                    Grid.Column="1"
+                    Aspect="AspectFit"
+                    HeightRequest="150"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="ic_decline_red_72dp"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="150">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="declineButton_Tapped" />
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+
+            </Grid>
+
+            <!--  for 1 button  -->
+            <ffimageloading:CachedImage
+                x:Name="okButton"
+                Grid.Column="0"
+                Aspect="AspectFit"
+                HeightRequest="120"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="False"
+                Source="ic_accept_enabled_72dp"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="120">
+                <ffimageloading:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="acceptButton_Tapped" />
+                </ffimageloading:CachedImage.GestureRecognizers>
+            </ffimageloading:CachedImage>
+
+        </StackLayout>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</pages:PopupPage>

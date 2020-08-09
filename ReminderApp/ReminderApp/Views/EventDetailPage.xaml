@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:BasePage
+    x:Class="ReminderApp.Views.EventDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:ReminderApp.Views.Base"
+    xmlns:controls="clr-namespace:ReminderApp.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="True">
+
+    <base:BasePage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding SaveCommand}"
+            Order="Primary"
+            Priority="0"
+            Text="Save" />
+    </base:BasePage.ToolbarItems>
+
+    <ScrollView>
+
+        <StackLayout Padding="10">
+
+            <Label Text="Title" />
+            <controls:CustomEntry
+                ReturnType="Next"
+                Text="{Binding Title}"
+                TextColor="Black" />
+
+            <BoxView
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand"
+                Color="Gray" />
+
+            <Label Text="Body" />
+            <controls:CustomEntry Text="{Binding Body}" TextColor="Black" />
+
+            <StackLayout
+                Margin="0,10"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <Label Text="Notification" VerticalOptions="CenterAndExpand" />
+                <Switch
+                    HorizontalOptions="EndAndExpand"
+                    IsToggled="{Binding IsNotified}"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding IsNotified}">
+
+                <Label Text="Date" />
+                <DatePicker Date="{Binding Date}" MinimumDate="{Binding MinimumDate}" />
+
+                <Label Text="Time" />
+                <TimePicker Time="{Binding Time}" />
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ScrollView>
+
+</base:BasePage>

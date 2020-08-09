@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="unselectedTabColor">#000000</color>
+  <color name="selectedTabColor">#ffffff</color>
+  <color name="bottomTabBackgroundColor">#becbec</color>
+
+  <color name="splash_background">#B0C2EB</color>
+</resources>
