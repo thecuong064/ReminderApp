@@ -75,7 +75,7 @@ namespace ReminderApp.Droid.LocalNotification
             _manager.Notify(id, builder.Build());
 
             Vibrator vibrator = (Vibrator)Application.Context.GetSystemService(Context.VibratorService);
-            vibrator.Vibrate(new long[] { 0, 1000, 100, 1000, 100, 1000 }, -1);
+            vibrator.Vibrate(new long[] { 0, 1000, 300, 1000 }, -1);
         }
 
         public static Intent GetLauncherActivity()
