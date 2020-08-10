@@ -18,15 +18,15 @@ namespace ReminderApp.Views
 
         private void InitBottomTabbedPage()
         {
-            Children.Add(new NavigationPage(new EventsPage())
+            Children.Add(new NavigationPage(new UpcomingEventsPage())
             {
-                Title = "Events",
+                Title = "Upcoming",
                 IconImageSource = "ic_events_black_72dp.png",
             });
 
-            Children.Add(new NavigationPage(new CalendarPage())
+            Children.Add(new NavigationPage(new PastEventsPage())
             {
-                Title = "Calendar",
+                Title = "Past",
                 IconImageSource = "ic_calendar_black_72dp.png",
             });
 

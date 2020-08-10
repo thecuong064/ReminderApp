@@ -98,11 +98,11 @@ namespace ReminderApp
             containerRegistry.RegisterForNavigation<NavigationPage>(PageManager.NavigationPage);
 
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>(PageManager.MainPage);
-            containerRegistry.RegisterForNavigation<EventsPage, EventsPageViewModel>(PageManager.EventsPage);
-            containerRegistry.RegisterForNavigation<CalendarPage, CalendarPageViewModel>(PageManager.CalendarPage);
-            containerRegistry.RegisterForNavigation<EventDetailPage, EventDetailPageViewModel>();
-            containerRegistry.RegisterForNavigation<ShowEventDetailPage, ShowEventDetailPageViewModel>();
-            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<UpcomingEventsPage, UpcomingEventsPageViewModel>(PageManager.UpcomingEventsPage);
+            containerRegistry.RegisterForNavigation<PastEventsPage, PastEventsPageViewModel>(PageManager.PastEventsPage);
+            containerRegistry.RegisterForNavigation<EventDetailPage, EventDetailPageViewModel>(PageManager.EventDetailPage);
+            containerRegistry.RegisterForNavigation<ShowEventDetailPage, ShowEventDetailPageViewModel>(PageManager.ShowEventDetailPage);
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>(PageManager.SettingsPage);
         }
 
         #endregion

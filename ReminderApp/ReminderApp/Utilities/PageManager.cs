@@ -14,10 +14,11 @@ namespace ReminderApp.Utilities
         // Home Flow
         public static readonly string NavigationPage = "NavigationPage";
         public static readonly string MainPage = "MainPage";
-        public static readonly string EventsPage = "EventsPage";
-        public static readonly string CalendarPage = "CalendarPage";
+        public static readonly string UpcomingEventsPage = "UpcomingEventsPage";
+        public static readonly string PastEventsPage = "PastEventsPage";
         public static readonly string EventDetailPage = "EventDetailPage";
         public static readonly string ShowEventDetailPage = "ShowEventDetailPage";
+        public static readonly string SettingsPage = "SettingsPage";
 
         #endregion
 

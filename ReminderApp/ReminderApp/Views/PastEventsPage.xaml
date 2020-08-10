@@ -1,18 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <base:BasePage
-    x:Class="ReminderApp.Views.UpcomingEventsPage"
+    x:Class="ReminderApp.Views.PastEventsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:ReminderApp.Views.Base"
     xmlns:converter="clr-namespace:ReminderApp.Converters"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
-
-    <base:BasePage.Resources>
-        <ResourceDictionary>
-            <converter:RevertBoolValueConverter x:Key="RevertBoolValueConverter" />
-        </ResourceDictionary>
-    </base:BasePage.Resources>
 
     <StackLayout Padding="8">
 
@@ -25,8 +19,8 @@
                 FontAttributes="Bold"
                 FontSize="{StaticResource SuperLargeFontSize}"
                 HorizontalOptions="Center"
-                Text="UPCOMING"
-                TextColor="{StaticResource LightBlueColor}"
+                Text="PAST"
+                TextColor="{StaticResource GrayTextColor}"
                 VerticalOptions="CenterAndExpand" />
         </StackLayout>
 
@@ -110,20 +104,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button
-                Margin="20,20,20,40"
-                BackgroundColor="{StaticResource LightBlueColor}"
-                Command="{Binding AddEventCommand}"
-                CornerRadius="90"
-                FontSize="25"
-                HeightRequest="55"
-                HorizontalOptions="End"
-                Text="+"
-                TextColor="White"
-                VerticalOptions="End"
-                WidthRequest="55" />
         </Grid>
 
     </StackLayout>
-
 </base:BasePage>

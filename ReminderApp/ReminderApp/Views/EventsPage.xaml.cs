@@ -5,11 +5,11 @@ using Xamarin.Forms;
 
 namespace ReminderApp.Views
 {
-    public partial class EventsPage : BasePage
+    public partial class UpcomingEventsPage : BasePage
     {
         #region Constructor
 
-        public EventsPage()
+        public UpcomingEventsPage()
         {
             InitializeComponent();
         }
@@ -19,7 +19,7 @@ namespace ReminderApp.Views
         private void MenuItem_Clicked(object sender, System.EventArgs e)
         {
             var item = ((MenuItem)sender).CommandParameter;
-            EventsPageViewModel.Instance.DeleteEvent((Event)item);
+            UpcomingEventsPageViewModel.Instance.DeleteEvent((Event)item);
         }
     }
 }

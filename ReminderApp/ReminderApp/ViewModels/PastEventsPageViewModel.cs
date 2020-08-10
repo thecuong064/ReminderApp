@@ -14,17 +14,16 @@ using Xamarin.Forms;
 
 namespace ReminderApp.ViewModels
 {
-    public class UpcomingEventsPageViewModel : BaseViewModel
+    public class PastEventsPageViewModel : BaseViewModel
     {
         #region Constructor
 
-        public UpcomingEventsPageViewModel(INavigationService navigationService = null,
+        public PastEventsPageViewModel(INavigationService navigationService = null, 
             IPageDialogService dialogService = null,
             ISqLiteService sqliteService = null)
             : base(navigationService, dialogService, sqliteService)
         {
             Instance = this;
-            AddEventCommand = new DelegateCommand(AddEventExecute);
             OnEventTappedCommand = new DelegateCommand(OnEventTappedExecute);
             RefreshListCommand = new DelegateCommand(RefreshListExecute);
         }
@@ -33,14 +32,14 @@ namespace ReminderApp.ViewModels
 
         #region Properties
 
-        public static UpcomingEventsPageViewModel Instance { get; private set; }
+        public static PastEventsPageViewModel Instance { get; private set; }
 
         public ObservableCollection<Event> AllEventsList;
 
         private ObservableCollection<Event> _showEventsList;
-        public ObservableCollection<Event> ShowedEventsList 
-        { 
-            get => _showEventsList; 
+        public ObservableCollection<Event> ShowedEventsList
+        {
+            get => _showEventsList;
             set => SetProperty(ref _showEventsList, value);
         }
 
@@ -59,11 +58,11 @@ namespace ReminderApp.ViewModels
         {
             base.OnFirstTimeAppear();
 
-            await GetTheList();
+            await GetPastEventsList();
             //handle when clear data in settings page
             MessagingCenter.Subscribe<SettingsPageViewModel>(this, MessagingCenterKey.DataCleared.ToString(), async (sender) =>
             {
-                await GetTheList();
+                await GetPastEventsList();
             });
 
         }
@@ -78,7 +77,7 @@ namespace ReminderApp.ViewModels
             {
                 if (parameters.ContainsKey(ParamKey.EventsListUpdated.ToString()))
                 {
-                    await GetTheList(true);
+                    await GetPastEventsList(true);
                 }
             }
         }
@@ -91,10 +90,10 @@ namespace ReminderApp.ViewModels
 
         public async void RefreshListExecute()
         {
-            await GetTheList(true);
+            await GetPastEventsList(true);
         }
 
-        private async Task GetTheList(bool isLoadingDelay = false)
+        private async Task GetPastEventsList(bool isLoadingDelay = false)
         {
             IsBusy = true;
 
@@ -108,42 +107,17 @@ namespace ReminderApp.ViewModels
                 AllEventsList = new ObservableCollection<Event>(SqLiteService.GetList<Event>());
                 ShowedEventsList = new ObservableCollection<Event>();
 
+                // past events
                 foreach (var e in AllEventsList)
                 {
-                    //if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
-                    //{
+                    if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) <= 0)
+                    {
                         ShowedEventsList.Add(e);
-                    //}
+                    }
                 }
             });
 
             IsBusy = false;
-        }
-
-        #endregion
-
-        #region AddEventCommand
-
-        public ICommand AddEventCommand { get; set; }
-
-        async void AddEventExecute()
-        {
-            await CheckNotBusy(async () =>
-            {
-                var newId = AllEventsList.Count;
-
-                if (AllEventsList.Count > 0)
-                {
-                    newId = AllEventsList[AllEventsList.Count - 1].Id + 1;
-                }
-
-                NavigationParameters param = new NavigationParameters
-                {
-                    {ParamKey.SelectedEventId.ToString(), newId }
-                };
-
-                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param, animated: false);
-            });
         }
 
         #endregion
@@ -161,7 +135,7 @@ namespace ReminderApp.ViewModels
                     {ParamKey.SelectedEventId.ToString(), SelectedEvent.Id},
                 };
 
-                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param);
+                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters: param);
             });
         }
 
