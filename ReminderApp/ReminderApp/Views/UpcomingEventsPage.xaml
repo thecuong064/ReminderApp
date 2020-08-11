@@ -30,16 +30,20 @@
                 VerticalOptions="CenterAndExpand" />
         </StackLayout>
 
-        <Grid>
+        <Grid VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <ListView
+                GroupDisplayBinding="{Binding Title}"
+                GroupShortNameBinding="{Binding ShortName}"
                 HasUnevenRows="True"
+                IsGroupingEnabled="true"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsBusy}"
-                ItemsSource="{Binding ShowedEventsList}"
+                IsVisible="{Binding IsThereNoEvent, Converter={StaticResource RevertBoolValueConverter}}"
+                ItemsSource="{Binding GroupEventList}"
                 RefreshCommand="{Binding RefreshListCommand}"
                 SelectedItem="{Binding SelectedEvent}"
                 SeparatorVisibility="None">
@@ -114,6 +118,12 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding IsThereNoEvent}"
+                Text="No events found"
+                VerticalOptions="CenterAndExpand" />
 
             <Button
                 Margin="20,20,20,40"

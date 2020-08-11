@@ -8,6 +8,7 @@ using ReminderApp.Utilities;
 using ReminderApp.ViewModels.Base;
 using System;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -49,6 +50,20 @@ namespace ReminderApp.ViewModels
         {
             get => _selectedEvent;
             set => SetProperty(ref _selectedEvent, value);
+        }
+
+        private ObservableCollection<GroupEvent> _groupEventList;
+        public ObservableCollection<GroupEvent> GroupEventList
+        {
+            get => _groupEventList;
+            set => SetProperty(ref _groupEventList, value);
+        }
+
+        private bool _isThereNoEvent;
+        public bool IsThereNoEvent
+        {
+            get => _isThereNoEvent;
+            set => SetProperty(ref _isThereNoEvent, value);
         }
 
         #endregion
@@ -108,13 +123,50 @@ namespace ReminderApp.ViewModels
                 AllEventsList = new ObservableCollection<Event>(SqLiteService.GetList<Event>());
                 ShowedEventsList = new ObservableCollection<Event>();
 
+                GroupEventList = new ObservableCollection<GroupEvent>();
+                var todayGroup = new GroupEvent 
+                { 
+                    Title = "Today", 
+                    ShortName = "T" 
+                };
+                var elseGroup = new GroupEvent
+                {
+                    Title = "Else",
+                    ShortName = "E"
+                };
+
                 foreach (var e in AllEventsList)
                 {
+                    //if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
+                    //{
+                    //    ShowedEventsList.Add(e);
+                    //if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
+                    //}
                     if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
                     {
-                        ShowedEventsList.Add(e);
+
+                        if (DateTime.Compare(e.Date, DateTime.Now.Date) == 0)
+                        {
+                            todayGroup.Add(e);
+                        }
+                        else
+                        {
+                            elseGroup.Add(e);
+                        }
                     }
                 }
+
+                if (todayGroup.Count > 0)
+                {
+                    GroupEventList.Add(todayGroup);
+                }
+                if (elseGroup.Count > 0)
+                {
+                    GroupEventList.Add(elseGroup);
+                }
+
+                IsThereNoEvent = GroupEventList.Count <= 0;
+
             });
 
             IsBusy = false;
