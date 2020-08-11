@@ -88,27 +88,24 @@ namespace ReminderApp.ViewModels
         {
             if (parameters != null)
             {
-                if (parameters.ContainsKey(ParamKey.SelectedEventId.ToString()))
+                if (parameters.ContainsKey(ParamKey.SelectedEvent.ToString()))
                 {
-                    var id = (int)parameters[ParamKey.SelectedEventId.ToString()];
-                    CurrentEvent = SqLiteService.Get<Event>(s => s.Id == id);
-                    if (CurrentEvent == null)
-                    {
-                        InitNewEvent();
-                        CurrentEvent.Id = id;
-                    }
-                    else
-                    {
-                        Title = CurrentEvent.Title;
-                        Body = CurrentEvent.Body;
-                        Date = CurrentEvent.Date;
-                        Time = CurrentEvent.Time;
-                        IsNotified = CurrentEvent.IsNotified;
-                    }
+                    CurrentEvent = (Event)parameters[ParamKey.SelectedEvent.ToString()];
+                    Title = CurrentEvent.Title;
+                    Body = CurrentEvent.Body;
+                    Date = CurrentEvent.Date;
+                    Time = CurrentEvent.Time;
+                    IsNotified = CurrentEvent.IsNotified;
                 }
-                else
+                else if (parameters.ContainsKey(ParamKey.NewEvent.ToString()))
                 {
+                    CurrentEvent = (Event)parameters[ParamKey.NewEvent.ToString()];
                     InitNewEvent();
+                }
+                else if (parameters.ContainsKey(ParamKey.DuplicatedEvent.ToString()))
+                {
+                    CurrentEvent = (Event)parameters[ParamKey.DuplicatedEvent.ToString()];
+                    InitNewEvent(isDuplicated: true);
                 }
             }
             else
@@ -121,23 +118,40 @@ namespace ReminderApp.ViewModels
 
         #region InitFields
 
-        private void InitNewEvent()
+        private void InitNewEvent(bool isDuplicated = false)
         {
-            CurrentEvent = new Event();
-
-            InitNewDateTime();
-            IsNotified = true;
+            if (isDuplicated)
+            {
+                InitNewDateTime(isDuplicated);
+                IsNotified = CurrentEvent.IsNotified;
+                Title = CurrentEvent.Title;
+                Body = CurrentEvent.Body;
+            }
+            else
+            {
+                InitNewDateTime();
+                IsNotified = true;
+            }
         }
 
         #endregion
 
         #region InitNewDateTime
 
-        private void InitNewDateTime()
+        private void InitNewDateTime(bool isDuplicated = false)
         {
-            Date = DateTime.Now.Date;
-            MinimumDate = DateTime.Now.Date;
-            Time = TimeSpan.FromMinutes(DateTime.Now.Minute + DateTime.Now.Hour * 60 + 5);
+            if (isDuplicated)
+            {
+                MinimumDate = DateTime.Now.Date;
+                Date = CurrentEvent.Date;
+                Time = TimeSpan.FromMinutes(DateTime.Now.Minute + DateTime.Now.Hour * 60 + 5);
+            }
+            else
+            {
+                MinimumDate = DateTime.Now.Date;
+                Date = DateTime.Now.Date;
+                Time = TimeSpan.FromMinutes(DateTime.Now.Minute + DateTime.Now.Hour * 60 + 5);
+            }
         }
 
         #endregion

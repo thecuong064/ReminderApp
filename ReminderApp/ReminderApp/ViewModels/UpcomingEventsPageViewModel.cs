@@ -59,11 +59,11 @@ namespace ReminderApp.ViewModels
         {
             base.OnFirstTimeAppear();
 
-            await GetTheList();
+            await GetUpcomingEventsList();
             //handle when clear data in settings page
             MessagingCenter.Subscribe<SettingsPageViewModel>(this, MessagingCenterKey.DataCleared.ToString(), async (sender) =>
             {
-                await GetTheList();
+                await GetUpcomingEventsList();
             });
 
         }
@@ -78,7 +78,7 @@ namespace ReminderApp.ViewModels
             {
                 if (parameters.ContainsKey(ParamKey.EventsListUpdated.ToString()))
                 {
-                    await GetTheList(true);
+                    await GetUpcomingEventsList(true);
                 }
             }
         }
@@ -91,10 +91,10 @@ namespace ReminderApp.ViewModels
 
         public async void RefreshListExecute()
         {
-            await GetTheList(true);
+            await GetUpcomingEventsList(true);
         }
 
-        private async Task GetTheList(bool isLoadingDelay = false)
+        private async Task GetUpcomingEventsList(bool isLoadingDelay = false)
         {
             IsBusy = true;
 
@@ -110,10 +110,10 @@ namespace ReminderApp.ViewModels
 
                 foreach (var e in AllEventsList)
                 {
-                    //if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
-                    //{
+                    if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
+                    {
                         ShowedEventsList.Add(e);
-                    //}
+                    }
                 }
             });
 
@@ -137,9 +137,15 @@ namespace ReminderApp.ViewModels
                     newId = AllEventsList[AllEventsList.Count - 1].Id + 1;
                 }
 
+                var newEvent = new Event
+                {
+                    Id = newId,
+                    IsNotified = true,
+                };
+
                 NavigationParameters param = new NavigationParameters
                 {
-                    {ParamKey.SelectedEventId.ToString(), newId }
+                    {ParamKey.NewEvent.ToString(), newEvent }
                 };
 
                 await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param, animated: false);
@@ -158,7 +164,7 @@ namespace ReminderApp.ViewModels
             {
                 NavigationParameters param = new NavigationParameters
                 {
-                    {ParamKey.SelectedEventId.ToString(), SelectedEvent.Id},
+                    {ParamKey.SelectedEvent.ToString(), SelectedEvent},
                 };
 
                 await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param);
@@ -169,16 +175,39 @@ namespace ReminderApp.ViewModels
 
         #region DeleteEvent
 
-        public async void DeleteEvent(Event e)
+        public async void DeleteEvent(Event selectedEvent)
         {
             var accept = await DialogService.DisplayAlertAsync("Confirmation", "You wanna delete this event, right?", "Of course", "No");
             if (accept)
             {
-                SqLiteService.Delete<Event>(e);
+                SqLiteService.Delete<Event>(selectedEvent);
                 RefreshListExecute();
             }
         }
 
         #endregion
+
+        public async void DuplicateEvent(Event selectedEvent)
+        {
+            await CheckNotBusy(async () =>
+            {
+                var newId = AllEventsList.Count;
+
+                if (AllEventsList.Count > 0)
+                {
+                    newId = AllEventsList[AllEventsList.Count - 1].Id + 1;
+                }
+
+                var newEvent = selectedEvent;
+                newEvent.Id = newId;
+
+                NavigationParameters param = new NavigationParameters
+                {
+                    {ParamKey.DuplicatedEvent .ToString(), newEvent},
+                };
+
+                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters: param);
+            });
+        }
     }
 }

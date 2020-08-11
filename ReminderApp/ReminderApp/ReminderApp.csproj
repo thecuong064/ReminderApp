@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\UpcomingEventsPage.xaml.cs">
+      <DependentUpon>UpcomingEventsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PastEventsPage.xaml.cs">
       <DependentUpon>PastEventsPage.xaml</DependentUpon>
     </Compile>
@@ -35,7 +38,7 @@
     <EmbeddedResource Update="Views\EventDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\EventsPage.xaml">
+    <EmbeddedResource Update="Views\UpcomingEventsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">

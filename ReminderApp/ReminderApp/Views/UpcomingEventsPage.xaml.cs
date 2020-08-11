@@ -16,10 +16,16 @@ namespace ReminderApp.Views
 
         #endregion
 
-        private void MenuItem_Clicked(object sender, System.EventArgs e)
+        private void RemoveMenuItem_Clicked(object sender, System.EventArgs e)
         {
             var item = ((MenuItem)sender).CommandParameter;
             UpcomingEventsPageViewModel.Instance.DeleteEvent((Event)item);
+        }
+
+        private void DuplicateMenuItem_Clicked(object sender, System.EventArgs e)
+        {
+            var item = ((MenuItem)sender).CommandParameter;
+            UpcomingEventsPageViewModel.Instance.DuplicateEvent((Event)item);
         }
     }
 }

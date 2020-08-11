@@ -12,22 +12,22 @@ namespace ReminderApp.Views
         {
             InitializeComponent();
             InitBottomTabbedPage();
-            SelectedItem = Children[0];
+            SelectedItem = Children[1];
             this.TabReselected += TabReselectedExecute;
         }
 
         private void InitBottomTabbedPage()
         {
-            Children.Add(new NavigationPage(new UpcomingEventsPage())
-            {
-                Title = "Upcoming",
-                IconImageSource = "ic_events_black_72dp.png",
-            });
-
             Children.Add(new NavigationPage(new PastEventsPage())
             {
                 Title = "Past",
                 IconImageSource = "ic_calendar_black_72dp.png",
+            });
+
+            Children.Add(new NavigationPage(new UpcomingEventsPage())
+            {
+                Title = "Upcoming",
+                IconImageSource = "ic_events_black_72dp.png",
             });
 
             Children.Add(new NavigationPage(new SettingsPage())
@@ -44,7 +44,7 @@ namespace ReminderApp.Views
 
             if (tab != null)
             {
-                if (title == "HOME")
+                if (title == "Upcoming")
                 {
                     try
                     {

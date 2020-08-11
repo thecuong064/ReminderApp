@@ -2,7 +2,9 @@
 {
     public enum ParamKey
     {
-        SelectedEventId,
+        SelectedEvent,
+        NewEvent,
+        DuplicatedEvent,
         EventsListUpdated,
     }
 }

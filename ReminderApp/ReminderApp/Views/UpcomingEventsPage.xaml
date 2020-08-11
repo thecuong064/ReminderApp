@@ -53,10 +53,15 @@
                         <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem
-                                    Clicked="MenuItem_Clicked"
+                                    Clicked="RemoveMenuItem_Clicked"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource="ic_delete.png"
+                                    IconImageSource=""
                                     Text="Remove" />
+                                <MenuItem
+                                    Clicked="DuplicateMenuItem_Clicked"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource=""
+                                    Text="Duplicate" />
                             </ViewCell.ContextActions>
 
                             <Frame

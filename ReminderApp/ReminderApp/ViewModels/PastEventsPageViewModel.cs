@@ -132,7 +132,7 @@ namespace ReminderApp.ViewModels
             {
                 NavigationParameters param = new NavigationParameters
                 {
-                    {ParamKey.SelectedEventId.ToString(), SelectedEvent.Id},
+                    {ParamKey.SelectedEvent.ToString(), SelectedEvent.Id},
                 };
 
                 await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters: param);
