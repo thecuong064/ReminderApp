@@ -118,7 +118,7 @@ namespace ReminderApp.Droid.LocalNotification
             var triggerTime = NotifyTimeInMilliseconds(localNotification.NotifyTime);
             var alarmManager = GetAlarmManager();
 
-            alarmManager.Set(AlarmType.RtcWakeup, triggerTime, pendingIntent);
+            alarmManager.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerTime, pendingIntent);
         }
 
         /// <summary>
