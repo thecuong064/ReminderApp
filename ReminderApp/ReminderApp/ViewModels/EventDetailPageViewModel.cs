@@ -164,8 +164,8 @@ namespace ReminderApp.ViewModels
         {
             await CheckNotBusy( async () =>
             {
-                CurrentEvent.Title = Title.Trim();
-                CurrentEvent.Body = Body.Trim();
+                CurrentEvent.Title = string.IsNullOrWhiteSpace(Title) ? "Default title" : Title.Trim();
+                CurrentEvent.Body = string.IsNullOrWhiteSpace(Body) ? "Default body" : Body.Trim();
                 CurrentEvent.Date = Date;
                 CurrentEvent.Time = Time;
                 CurrentEvent.IsNotified = IsNotified;
