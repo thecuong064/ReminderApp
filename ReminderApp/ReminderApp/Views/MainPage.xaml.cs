@@ -21,13 +21,13 @@ namespace ReminderApp.Views
             Children.Add(new NavigationPage(new PastEventsPage())
             {
                 Title = "Past",
-                IconImageSource = "ic_calendar_black_72dp.png",
+                IconImageSource = "ic_past_event_black_72dp.png",
             });
 
             Children.Add(new NavigationPage(new UpcomingEventsPage())
             {
                 Title = "Upcoming",
-                IconImageSource = "ic_events_black_72dp.png",
+                IconImageSource = "ic_upcoming_event_black_72dp.png",
             });
 
             Children.Add(new NavigationPage(new SettingsPage())
