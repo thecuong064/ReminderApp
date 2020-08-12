@@ -148,9 +148,18 @@ namespace ReminderApp.ViewModels
             }
             else
             {
-                MinimumDate = DateTime.Now.Date;
-                Date = DateTime.Now.Date;
-                Time = TimeSpan.FromMinutes(DateTime.Now.Minute + DateTime.Now.Hour * 60 + 5);
+                if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 55)
+                {
+                    MinimumDate = DateTime.Now.Date.AddDays(1);
+                    Date = DateTime.Now.Date.AddDays(1);
+                    Time = TimeSpan.FromMinutes(0);
+                }
+                else
+                {
+                    MinimumDate = DateTime.Now.Date;
+                    Date = DateTime.Now.Date;
+                    Time = TimeSpan.FromMinutes(DateTime.Now.Minute + DateTime.Now.Hour * 60 + 5);
+                }
             }
         }
 
