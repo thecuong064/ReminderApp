@@ -50,6 +50,13 @@ namespace ReminderApp.ViewModels
             set => SetProperty(ref _selectedEvent, value);
         }
 
+        private bool _isThereNoEvent;
+        public bool IsThereNoEvent
+        {
+            get => _isThereNoEvent;
+            set => SetProperty(ref _isThereNoEvent, value);
+        }
+
         #endregion
 
         #region OnFirstTimeAppear
@@ -93,6 +100,10 @@ namespace ReminderApp.ViewModels
             await GetPastEventsList(true);
         }
 
+        #endregion
+
+        #region GetPastEventsList
+
         private async Task GetPastEventsList(bool isLoadingDelay = false)
         {
             IsBusy = true;
@@ -116,6 +127,8 @@ namespace ReminderApp.ViewModels
                     }
                 }
             });
+
+            IsThereNoEvent = ShowedEventsList.Count <= 0;
 
             IsBusy = false;
         }

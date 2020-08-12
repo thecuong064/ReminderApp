@@ -104,6 +104,12 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding IsThereNoEvent}"
+                Text="No events found"
+                VerticalOptions="CenterAndExpand" />
+
         </Grid>
 
     </StackLayout>

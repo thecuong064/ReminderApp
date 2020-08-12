@@ -4,5 +4,7 @@
   <color name="selectedTabColor">#ffffff</color>
   <color name="bottomTabBackgroundColor">#becbec</color>
 
+  <color name="ListViewSelected">#FF0000</color>
+  <color name="ListViewLongPressed">#FF0000</color>
   <color name="splash_background">#B0C2EB</color>
 </resources>

@@ -113,6 +113,8 @@ namespace ReminderApp.ViewModels
         {
             IsBusy = true;
 
+            IsThereNoEvent = false;
+
             if (isLoadingDelay)
             {
                 await Task.Delay(1000);
@@ -120,6 +122,7 @@ namespace ReminderApp.ViewModels
 
             await CheckNotBusy(async () =>
             {
+
                 AllEventsList = new ObservableCollection<Event>(SqLiteService.GetList<Event>());
                 ShowedEventsList = new ObservableCollection<Event>();
 
@@ -164,7 +167,7 @@ namespace ReminderApp.ViewModels
                 {
                     GroupEventList.Add(elseGroup);
                 }
-
+                
                 IsThereNoEvent = GroupEventList.Count <= 0;
 
             });
@@ -221,6 +224,8 @@ namespace ReminderApp.ViewModels
 
                 await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters : param);
             });
+
+            SelectedEvent = null;
         }
 
         #endregion
