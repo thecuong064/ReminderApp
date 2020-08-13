@@ -27,5 +27,19 @@ namespace ReminderApp.Views
             var item = ((MenuItem)sender).CommandParameter;
             UpcomingEventsPageViewModel.Instance.DuplicateEvent((Event)item);
         }
+
+        private void menuButton_Clicked(object sender, System.EventArgs e)
+        {
+            addButton.IsVisible = !addButton.IsVisible;
+            clearButton.IsVisible = !clearButton.IsVisible;
+            if (menuButton.Text.Equals("x"))
+            {
+                menuButton.Text = ":::";
+            }
+            else
+            {
+                menuButton.Text = "x";
+            }
+        }
     }
 }

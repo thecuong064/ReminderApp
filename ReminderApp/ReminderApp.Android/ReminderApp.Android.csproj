@@ -148,6 +148,14 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_upcoming_event_black_72dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_past_event_black_72dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_upcoming_event_black_72dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_cleaning_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_cleaning_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_cleaning_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_cleaning_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_cleaning_white_72dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

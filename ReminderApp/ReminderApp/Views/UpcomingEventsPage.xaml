@@ -45,7 +45,7 @@
                 IsVisible="{Binding IsThereNoEvent, Converter={StaticResource RevertBoolValueConverter}}"
                 ItemsSource="{Binding GroupEventList}"
                 RefreshCommand="{Binding RefreshListCommand}"
-                SelectedItem="{Binding SelectedEvent}"
+                SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
                 SeparatorVisibility="None">
 
                 <ListView.Behaviors>
@@ -80,7 +80,7 @@
                                     </Grid.RowDefinitions>
 
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
@@ -110,6 +110,7 @@
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
                                         TextColor="{StaticResource BlackColor}" />
+
                                 </Grid>
 
                             </Frame>
@@ -125,18 +126,50 @@
                 Text="No events found"
                 VerticalOptions="CenterAndExpand" />
 
-            <Button
-                Margin="20,20,20,40"
-                BackgroundColor="{StaticResource LightBlueColor}"
-                Command="{Binding AddEventCommand}"
-                CornerRadius="90"
-                FontSize="25"
-                HeightRequest="55"
-                HorizontalOptions="End"
-                Text="+"
-                TextColor="White"
-                VerticalOptions="End"
-                WidthRequest="55" />
+            <StackLayout
+                Margin="0,0,20,40"
+                HorizontalOptions="EndAndExpand"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+
+                <ImageButton
+                    x:Name="clearButton"
+                    Padding="13"
+                    Aspect="AspectFit"
+                    BackgroundColor="{StaticResource LightBlueColor}"
+                    Command="{Binding ClearUpcomingEventCommand}"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="False"
+                    Source="ic_cleaning_white_72dp"
+                    WidthRequest="50" />
+
+                <Button
+                    x:Name="addButton"
+                    Margin="0,0,0,10"
+                    BackgroundColor="{StaticResource LightBlueColor}"
+                    Command="{Binding AddEventCommand}"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="False"
+                    Text="+"
+                    TextColor="{StaticResource WhiteColor}"
+                    WidthRequest="50" />
+
+                <Button
+                    x:Name="menuButton"
+                    BackgroundColor="#de4035"
+                    Clicked="menuButton_Clicked"
+                    CornerRadius="30"
+                    FontAttributes="Bold"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    Text=": : :"
+                    TextColor="{StaticResource WhiteColor}"
+                    WidthRequest="60" />
+            </StackLayout>
         </Grid>
 
     </StackLayout>

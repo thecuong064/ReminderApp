@@ -134,8 +134,8 @@ namespace ReminderApp.ViewModels
                 };
                 var elseGroup = new GroupEvent
                 {
-                    Title = "Else",
-                    ShortName = "E"
+                    Title = "Following days",
+                    ShortName = "F"
                 };
 
                 foreach (var e in AllEventsList)
