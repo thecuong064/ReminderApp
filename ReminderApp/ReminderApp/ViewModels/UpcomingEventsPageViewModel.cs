@@ -28,6 +28,7 @@ namespace ReminderApp.ViewModels
             AddEventCommand = new DelegateCommand(AddEventExecute);
             OnEventTappedCommand = new DelegateCommand(OnEventTappedExecute);
             RefreshListCommand = new DelegateCommand(RefreshListExecute);
+            ClearUpcomingEventsCommand = new DelegateCommand(ClearUpcomingEventsExecute);
         }
 
         #endregion
@@ -37,6 +38,8 @@ namespace ReminderApp.ViewModels
         public static UpcomingEventsPageViewModel Instance { get; private set; }
 
         public ObservableCollection<Event> AllEventsList;
+        private GroupEvent _todayGroup;
+        private GroupEvent _followingDaysGroup;
 
         private ObservableCollection<Event> _showEventsList;
         public ObservableCollection<Event> ShowedEventsList 
@@ -124,15 +127,16 @@ namespace ReminderApp.ViewModels
             {
 
                 AllEventsList = new ObservableCollection<Event>(SqLiteService.GetList<Event>());
-                ShowedEventsList = new ObservableCollection<Event>();
 
                 GroupEventList = new ObservableCollection<GroupEvent>();
-                var todayGroup = new GroupEvent 
+
+                _todayGroup = new GroupEvent 
                 { 
                     Title = "Today", 
                     ShortName = "T" 
                 };
-                var elseGroup = new GroupEvent
+
+                _followingDaysGroup = new GroupEvent
                 {
                     Title = "Following days",
                     ShortName = "F"
@@ -140,32 +144,27 @@ namespace ReminderApp.ViewModels
 
                 foreach (var e in AllEventsList)
                 {
-                    //if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
-                    //{
-                    //    ShowedEventsList.Add(e);
-                    //if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
-                    //}
                     if (DateTime.Compare(e.Date.AddMinutes(e.Time.TotalMinutes), DateTime.Now) > 0)
                     {
 
                         if (DateTime.Compare(e.Date, DateTime.Now.Date) == 0)
                         {
-                            todayGroup.Add(e);
+                            _todayGroup.Add(e);
                         }
                         else
                         {
-                            elseGroup.Add(e);
+                            _followingDaysGroup.Add(e);
                         }
                     }
                 }
 
-                if (todayGroup.Count > 0)
+                if (_todayGroup.Count > 0)
                 {
-                    GroupEventList.Add(todayGroup);
+                    GroupEventList.Add(_todayGroup);
                 }
-                if (elseGroup.Count > 0)
+                if (_followingDaysGroup.Count > 0)
                 {
-                    GroupEventList.Add(elseGroup);
+                    GroupEventList.Add(_followingDaysGroup);
                 }
                 
                 IsThereNoEvent = GroupEventList.Count <= 0;
@@ -244,6 +243,8 @@ namespace ReminderApp.ViewModels
 
         #endregion
 
+        #region DuplicateEvent
+
         public async void DuplicateEvent(Event selectedEvent)
         {
             await CheckNotBusy(async () =>
@@ -266,5 +267,35 @@ namespace ReminderApp.ViewModels
                 await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters: param);
             });
         }
+
+        #endregion
+
+        #region ClearUpcomingEventsCommand
+
+        public ICommand ClearUpcomingEventsCommand { get; set; }
+
+        async void ClearUpcomingEventsExecute()
+        {
+            await CheckNotBusy(async () =>
+            {
+                var accept = await DialogService.DisplayAlertAsync("Confirmation", "You wanna delete all the upcoming events, right?", "Of course", "No");
+                if (accept)
+                {
+                    foreach (var e in _todayGroup)
+                    {
+                        SqLiteService.Delete(e);
+                    }
+
+                    foreach (var e in _followingDaysGroup)
+                    {
+                        SqLiteService.Delete(e);
+                    }
+
+                    RefreshListExecute();
+                }
+            });
+        }
+
+        #endregion
     }
 }

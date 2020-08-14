@@ -16,6 +16,18 @@ namespace ReminderApp.Views
 
         #endregion
 
+        #region OnAppearing
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            addButton.IsVisible = false;
+            clearButton.IsVisible = false;
+            menuButton.Text = ":::";
+        }
+
+        #endregion
+
         private void RemoveMenuItem_Clicked(object sender, System.EventArgs e)
         {
             var item = ((MenuItem)sender).CommandParameter;

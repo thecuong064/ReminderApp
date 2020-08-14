@@ -24,8 +24,8 @@ namespace ReminderApp.ViewModels
             : base(navigationService, dialogService, sqliteService)
         {
             Instance = this;
-            OnEventTappedCommand = new DelegateCommand(OnEventTappedExecute);
             RefreshListCommand = new DelegateCommand(RefreshListExecute);
+            ClearPastEventsCommand = new DelegateCommand(ClearPastEventsExecute);
         }
 
         #endregion
@@ -135,25 +135,6 @@ namespace ReminderApp.ViewModels
 
         #endregion
 
-        #region OnEventTappedCommand
-
-        public ICommand OnEventTappedCommand { get; set; }
-
-        async void OnEventTappedExecute()
-        {
-            await CheckNotBusy(async () =>
-            {
-                NavigationParameters param = new NavigationParameters
-                {
-                    {ParamKey.SelectedEvent.ToString(), SelectedEvent.Id},
-                };
-
-                await Navigation.NavigateAsync(PageManager.EventDetailPage, parameters: param);
-            });
-        }
-
-        #endregion
-
         #region DeleteEvent
 
         public async void DeleteEvent(Event e)
@@ -164,6 +145,30 @@ namespace ReminderApp.ViewModels
                 SqLiteService.Delete<Event>(e);
                 RefreshListExecute();
             }
+        }
+
+        #endregion
+
+        #region ClearPastEventsCommand
+
+        public ICommand ClearPastEventsCommand { get; set; }
+
+        async void ClearPastEventsExecute()
+        {
+            await CheckNotBusy(async () =>
+            {
+                var accept = await DialogService.DisplayAlertAsync("Confirmation", "You wanna delete all the past events, right?", "Of course", "No");
+                if (accept)
+                {
+                    foreach (var e in ShowedEventsList)
+                    {
+                        SqLiteService.Delete(e);
+                    }
+                    RefreshListExecute();
+                }
+            });
+
+            SelectedEvent = null;
         }
 
         #endregion

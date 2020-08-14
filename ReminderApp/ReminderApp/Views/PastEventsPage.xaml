@@ -38,18 +38,14 @@
                 SelectedItem="{Binding SelectedEvent}"
                 SeparatorVisibility="None">
 
-                <ListView.Behaviors>
-                    <prism:EventToCommandBehavior Command="{Binding OnEventTappedCommand}" EventName="ItemTapped" />
-                </ListView.Behaviors>
-
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem
-                                    Clicked="MenuItem_Clicked"
+                                    Clicked="RemoveMenuItem_Clicked"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource="ic_delete.png"
+                                    IconImageSource="ic_delete_white_72dp.png"
                                     Text="Remove" />
                             </ViewCell.ContextActions>
 
@@ -109,6 +105,38 @@
                 IsVisible="{Binding IsThereNoEvent}"
                 Text="No events found"
                 VerticalOptions="CenterAndExpand" />
+
+            <StackLayout
+                Margin="0,0,20,40"
+                HorizontalOptions="EndAndExpand"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+
+                <ImageButton
+                    x:Name="clearButton"
+                    Padding="13"
+                    Aspect="AspectFit"
+                    BackgroundColor="{StaticResource LightBlueColor}"
+                    Command="{Binding ClearPastEventsCommand}"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="False"
+                    Source="ic_cleaning_white_72dp"
+                    WidthRequest="50" />
+
+                <Button
+                    x:Name="menuButton"
+                    BackgroundColor="#de4035"
+                    Clicked="menuButton_Clicked"
+                    CornerRadius="30"
+                    FontAttributes="Bold"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    Text=": : :"
+                    TextColor="{StaticResource WhiteColor}"
+                    WidthRequest="60" />
+            </StackLayout>
 
         </Grid>
 

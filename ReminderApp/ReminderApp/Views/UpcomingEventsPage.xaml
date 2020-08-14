@@ -59,12 +59,12 @@
                                 <MenuItem
                                     Clicked="RemoveMenuItem_Clicked"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource=""
+                                    IconImageSource="ic_delete_white_72dp"
                                     Text="Remove" />
                                 <MenuItem
                                     Clicked="DuplicateMenuItem_Clicked"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource=""
+                                    IconImageSource="ic_duplicate_white_72dp"
                                     Text="Duplicate" />
                             </ViewCell.ContextActions>
 
@@ -137,7 +137,7 @@
                     Padding="13"
                     Aspect="AspectFit"
                     BackgroundColor="{StaticResource LightBlueColor}"
-                    Command="{Binding ClearUpcomingEventCommand}"
+                    Command="{Binding ClearUpcomingEventsCommand}"
                     CornerRadius="25"
                     HeightRequest="50"
                     HorizontalOptions="EndAndExpand"
