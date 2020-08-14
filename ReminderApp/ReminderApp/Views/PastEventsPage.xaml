@@ -45,7 +45,7 @@
                                 <MenuItem
                                     Clicked="RemoveMenuItem_Clicked"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource="ic_delete_white_72dp.png"
+                                    IconImageSource="ic_delete_white_72dp"
                                     Text="Remove" />
                             </ViewCell.ContextActions>
 

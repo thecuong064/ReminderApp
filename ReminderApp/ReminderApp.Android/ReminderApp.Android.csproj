@@ -153,6 +153,16 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_cleaning_white_72dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_cleaning_white_72dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_cleaning_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_delete_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_delete_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_delete_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_delete_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_delete_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_duplicate_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_duplicate_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_duplicate_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_duplicate_white_72dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_duplicate_white_72dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
