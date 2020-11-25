@@ -173,8 +173,8 @@ namespace ReminderApp.ViewModels
         {
             await CheckNotBusy( async () =>
             {
-                CurrentEvent.Title = string.IsNullOrWhiteSpace(Title) ? "Default title" : Title.Trim();
-                CurrentEvent.Body = string.IsNullOrWhiteSpace(Body) ? "Default body" : Body.Trim();
+                CurrentEvent.Title = string.IsNullOrWhiteSpace(Title) ? "" : Title.Trim();
+                CurrentEvent.Body = string.IsNullOrWhiteSpace(Body) ? "" : Body.Trim();
                 CurrentEvent.Date = Date;
                 CurrentEvent.Time = Time;
                 CurrentEvent.IsNotified = IsNotified;
@@ -185,7 +185,7 @@ namespace ReminderApp.ViewModels
                 {
                     var dateTime = Date.AddMinutes(Time.TotalMinutes);
                     CrossLocalNotifications.Current.Cancel(CurrentEvent.Id);
-                    CrossLocalNotifications.Current.Show(Title, Body, CurrentEvent.Id, dateTime);
+                    CrossLocalNotifications.Current.Show(CurrentEvent.Title, CurrentEvent.Body, CurrentEvent.Id, dateTime);
                 }
                 else
                 {
