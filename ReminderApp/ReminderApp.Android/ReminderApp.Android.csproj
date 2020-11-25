@@ -79,6 +79,7 @@
     <Compile Include="Controls\CustomEntryRenderer.cs" />
     <Compile Include="Controls\CustomTabbedPageRenderer.cs" />
     <Compile Include="Controls\CustomTabbedPageRenderer.Tabs.cs" />
+    <Compile Include="Controls\CustomTimePickerRenderer.cs" />
     <Compile Include="LocalNotifcation\CrossLocalNotifications.cs" />
     <Compile Include="LocalNotifcation\LocalNotification.cs" />
     <Compile Include="LocalNotifcation\LocalNotificationImplementation.cs" />
